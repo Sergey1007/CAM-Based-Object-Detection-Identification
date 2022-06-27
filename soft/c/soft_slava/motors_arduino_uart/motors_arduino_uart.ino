@@ -33,7 +33,7 @@ void rmotor (int motor,int steps,int dir)            //функция не ра�
 
 void setup() {
   // put your setup code here, to run once:
-Serial.begin(9600);
+Serial.begin(1000000);
 pinMode(STEP_PIN1,OUTPUT);
 pinMode(DIR_PIN1,OUTPUT);
 pinMode(STEP_PIN2,OUTPUT);
