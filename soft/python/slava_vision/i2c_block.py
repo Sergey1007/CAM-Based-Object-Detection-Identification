@@ -15,10 +15,11 @@ def send_arr(data):
 	bus.write_i2c_block_data(SLAVE_ADDRESS,data[0],data[1:])
 
 if  __name__=='__main__':
-	data=[]
-	for _ in range (4):
-		input(int(symbol))
-		data.append(symbol)
-	print(data)
-	send_arr(data)
+	while True:
+		data=[]
+		for _ in range (3):
+			symbol=int(input("enter value: "))
+			data.append(symbol)
+		print(data)
+		send_arr(data)
 
