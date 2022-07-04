@@ -1,5 +1,5 @@
 #include  <Wire.h>
-#define frequency 2000
+#define frequency 1500
 #define STEP_PIN1 2
 #define DIR_PIN1 3
 #define STEP_PIN2 4
