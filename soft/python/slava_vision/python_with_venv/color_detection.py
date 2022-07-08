@@ -26,9 +26,17 @@ def get_red_xy(img):
 
 
 if __name__=="__main__":
-    img = cv2.imread('sources/ipad3.jpg')
-    result=get_red_xy(img)
-    print(result)
-    cv2.circle(img, result, 10, (255, 0, 0), -1) #you can draw a found point
-    pyplot.imshow(img)
-    pyplot.show()
+    while True:
+        #img = cv2.imread('sources/ipad1.jpg'
+        cap = cv2.VideoCapture(0)
+        fl, img = cap.read()
+        print(fl)
+        if fl==True:
+            try:
+                result=get_red_xy(img)
+                print(result)
+                cv2.circle(img, result, 10, (255, 0, 0), -1) #you can draw a found point
+                cv2.imshow('result',img)
+                cv2.waitKey(1000)
+            except ZeroDivisionError:
+                print('error zero division')

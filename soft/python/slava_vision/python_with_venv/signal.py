@@ -3,7 +3,6 @@ def make_signal(old_c,new_c):
     signal=[1,0,1,2,0,1] #[0]-1 motor , [3]-2 motor ,[2],[5]-directions
     dif[0]=new_c[0]-old_c[0]
     dif[1] = new_c[1]- old_c[1]
-    print(dif)
 
     if (dif[0]<0):  #set directions
         signal[5]=0

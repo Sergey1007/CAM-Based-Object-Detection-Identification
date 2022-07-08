@@ -9,7 +9,7 @@ from signal import make_signal
 
 old_coordinate=[]
 new_coordinate=[920/2,1280/2]
-
+'''
 a=0
 while (old_coordinate==[]):
     if (a==0):
@@ -30,24 +30,29 @@ while (old_coordinate==[]):
         cv2.imshow('result', img)
         cv2.waitKey(3000)
     else:
-        print(old_coordinate)
+        #print(old_coordinate)
         cv2.circle(img, old_coordinate, 10, (255, 0, 0), -1) #you can draw a found point
         cv2.imshow('result',img)
         cv2.waitKey(3000)
 print('cycle exit')
 signal=make_signal(old_coordinate,new_coordinate)
 print(signal)
-
-
 '''
-img = cv2.imread('sources/ipad1.jpg')
-new_coordinate=get_red_xy(img)
-print(new_coordinate)
-cv2.circle(img, old_coordinate, 10, (255, 0, 0), -1) #you can draw a found point
-cv2.imshow('result',img)
-cv2.waitKey(5000)
-diff[0]=new_coordinate[0]-old_coordinate[0]
-diff[1]=new_coordinate[1]-old_coordinate[1]
-print(diff)
-'''
-#print(diff)
+
+while True:
+
+    old_coordinate=new_coordinate
+    #img = cv2.imread('sources/ipad1.jpg')
+    cap = cv2.VideoCapture(0)
+    fl, img = cap.read()
+    if (fl==True):
+        try:
+            new_coordinate=get_red_xy(img)
+            cv2.circle(img, new_coordinate, 10, (255, 0, 0), -1) #you can draw a found point
+            signal=make_signal(old_coordinate,new_coordinate)
+            print(signal)
+            cv2.imshow('result',img)
+            cv2.waitKey(1000)
+        except ZeroDivisionError:
+            print('error')
+
