@@ -9,7 +9,7 @@ from signal import make_signal
 
 old_coordinate=[]
 new_coordinate=[920/2,1280/2]
-'''
+
 a=0
 while (old_coordinate==[]):
     if (a==0):
@@ -47,6 +47,7 @@ while True:
     fl, img = cap.read()
     if (fl==True):
         try:
+            img = cv2.resize(img, (1280, 920))
             new_coordinate=get_red_xy(img)
             cv2.circle(img, new_coordinate, 10, (255, 0, 0), -1) #you can draw a found point
             signal=make_signal(old_coordinate,new_coordinate)
@@ -55,4 +56,4 @@ while True:
             cv2.waitKey(1000)
         except ZeroDivisionError:
             print('error')
-
+'''
