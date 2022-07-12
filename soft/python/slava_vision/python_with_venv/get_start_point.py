@@ -1,6 +1,6 @@
 import cv2
 import numpy as np
-from matplotlib import pyplot
+#from matplotlib import pyplot
 
 def get_start_xy(img):
     finish_list=[]
@@ -27,9 +27,9 @@ def get_start_xy(img):
 
 
 if __name__=="__main__":
-    #img = cv2.imread('sources/laser6.jpg')
-    cap = cv2.VideoCapture(0)
-    _, img = cap.read()
+    img = cv2.imread('sources/laser3.jpg')
+    #cap = cv2.VideoCapture(0)
+    #_, img = cap.read()
     result=get_start_xy(img)
     print(result)
     cv2.circle(img, result, 10, (255, 0, 0), -1) #you can draw a found point
