@@ -18,6 +18,7 @@ cap = cv2.VideoCapture(0)
 while (old_coordinate==[]):
     fl, img = cap.read()
     #img=cv2.imread('sources/laser3.jpg')
+    img = cv2.resize(img, (1280, 920))
     print(fl)
     try:
         old_coordinate=st.get_start_xy(img)
