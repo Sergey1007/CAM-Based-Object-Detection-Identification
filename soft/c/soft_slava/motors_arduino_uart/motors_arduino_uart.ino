@@ -3,6 +3,12 @@
 #define DIR_PIN1 3
 #define STEP_PIN2 4
 #define DIR_PIN2 5 
+#define ms1_1mot_pin 8
+#define ms1_2mot_pin 9
+
+
+#define ms1_for_first 1
+#define ms1_for_second 1
 
 /*
 void rmotor (int motor,int steps,int dir)            //функция не работает
@@ -38,6 +44,14 @@ pinMode(STEP_PIN1,OUTPUT);
 pinMode(DIR_PIN1,OUTPUT);
 pinMode(STEP_PIN2,OUTPUT);
 pinMode(DIR_PIN2,OUTPUT);
+
+  pinMode(ms1_1mot_pin,OUTPUT);
+  digitalWrite(ms1_1mot_pin,HIGH);
+
+
+  pinMode(ms1_1mot_pin,OUTPUT);
+  digitalWrite(ms1_1mot_pin,HIGH);
+
 }
 
 void loop() {
@@ -56,7 +70,7 @@ while (Serial.available() > 0) {
 
 if (a[0]==1){
 digitalWrite(DIR_PIN1,a[2]);
- for (int i=0;i<4*a[1];i++) {
+ for (int i=0;i<a[1];i++) {
   digitalWrite(STEP_PIN1,HIGH);
   delayMicroseconds(frequency);
   digitalWrite(STEP_PIN1,LOW);
@@ -64,7 +78,7 @@ digitalWrite(DIR_PIN1,a[2]);
 
 if (a[0]==2){
 digitalWrite(DIR_PIN2,a[2]);
- for (int i=0;i<4*a[1];i++) {
+ for (int i=0;i<a[1];i++) {
   digitalWrite(STEP_PIN2,HIGH);
   delayMicroseconds(frequency);
   digitalWrite(STEP_PIN2,LOW);
