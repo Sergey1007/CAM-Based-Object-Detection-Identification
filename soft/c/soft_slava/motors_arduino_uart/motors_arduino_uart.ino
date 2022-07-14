@@ -49,26 +49,26 @@ pinMode(DIR_PIN2,OUTPUT);
   digitalWrite(ms1_1mot_pin,HIGH);
 
 
-  pinMode(ms1_1mot_pin,OUTPUT);
-  digitalWrite(ms1_1mot_pin,HIGH);
+  pinMode(ms1_2mot_pin,OUTPUT);
+  digitalWrite(ms1_2mot_pin,HIGH);
 
 }
 
 void loop() {
   // put your main code here, to run repeatedly:
-int a[3]={0};
+int a[6]={0};
 int i=0;
 while (Serial.available() > 0) {
- for (i=0;i<3;i++)
+ for (i=0;i<6;i++)
  {a[i]=Serial.parseInt(); }
  Serial. read();
- for (i=0;i<3;i++)
+ for (i=0;i<6;i++)
  {Serial.println(a[i]);}
   }
 
 //rmotor(2,200,0);
-
-if (a[0]==1){
+/*
+if (a[0]==1){                    //code for one motor
 digitalWrite(DIR_PIN1,a[2]);
  for (int i=0;i<a[1];i++) {
   digitalWrite(STEP_PIN1,HIGH);
@@ -83,7 +83,21 @@ digitalWrite(DIR_PIN2,a[2]);
   delayMicroseconds(frequency);
   digitalWrite(STEP_PIN2,LOW);
   }}
-  
+ */
+ 
+digitalWrite(DIR_PIN1,a[2]);       //code for two motors
+digitalWrite(DIR_PIN2,a[5]);
+while (a[1]>0||a[4]>0)
+{
+  if (a[1]>0) digitalWrite(STEP_PIN1,HIGH);
+  if (a[4]>0) digitalWrite(STEP_PIN2,HIGH);
+  delayMicroseconds(frequency);
+  digitalWrite(STEP_PIN1,LOW);
+  digitalWrite(STEP_PIN2,LOW);
+  a[1]--;
+  a[4]--;
+}
+
 delay(100);
 
 
