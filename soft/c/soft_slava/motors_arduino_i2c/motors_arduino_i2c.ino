@@ -1,5 +1,5 @@
 #include  <Wire.h>
-#define frequency 1500
+#define frequency 2000
 #define STEP_PIN1 2
 #define DIR_PIN1 3
 #define STEP_PIN2 4
@@ -57,7 +57,7 @@ void rmotors(int motor1,int steps1,int dir1,int motor2,int steps2,int dir2)
 {
   digitalWrite(DIR_PIN1,dir1);       //code for two motors
   digitalWrite(DIR_PIN2,dir2);
-  while (steps1>0||ateps2>0)
+  while (steps1>0||steps2>0)
   {
     if (steps1>0) digitalWrite(STEP_PIN1,HIGH);
     if (steps2>0) digitalWrite(STEP_PIN2,HIGH);
@@ -94,6 +94,7 @@ void loop() {}
 
 void processMessage(int n)
 {  
+  /*
    int a,b,c;
    //пробовал организовать через массив , не получилось , передаются каждый раз одинаковые числа ,не понятно откуда взятые   
    a=Wire.read();
@@ -103,6 +104,15 @@ void processMessage(int n)
    write_data(a,b,c);
    rmotor(a,b,c);
    toggleLED();
-   
+   */
+   int motor1,steps1,dir1,motor2,steps2,dir2;
+   motor1=Wire.read();
+   steps1=Wire.read();
+   dir1=Wire.read();
+   motor2=Wire.read();
+   steps2=Wire.read();
+   dir2=Wire.read();
+   toggleLED();
+   rmotors(motor1,steps1,dir1,motor2,steps2,dir2);
 
 }
