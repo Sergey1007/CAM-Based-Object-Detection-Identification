@@ -2,8 +2,6 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="aec228b3-abac-43d2-bd46-c3f8eb090319" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/blink_laser.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../../c/soft_slava/motors_arduino_i2c/motors_arduino_i2c.ino" beforeDir="false" afterPath="$PROJECT_DIR$/../../../c/soft_slava/motors_arduino_i2c/motors_arduino_i2c.ino" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
