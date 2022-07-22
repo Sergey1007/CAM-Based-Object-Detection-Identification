@@ -3,8 +3,7 @@
   <component name="ChangeListManager">
     <list default="true" id="5359326f-be64-4443-964e-77dc8c04eb22" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/arduino_uart.py" beforeDir="false" afterPath="$PROJECT_DIR$/arduino_uart.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/yolo_detection.py" beforeDir="false" afterPath="$PROJECT_DIR$/yolo_detection.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/testcamera.py" beforeDir="false" afterPath="$PROJECT_DIR$/testcamera.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -39,7 +38,7 @@
       <recent name="C:\Users\tkac0\digital_solve\CAM-Based-Object-Detection-Identification\soft\python\slava_vision\python_with_venv" />
     </key>
   </component>
-  <component name="RunManager" selected="Python.arduino_uart">
+  <component name="RunManager" selected="Python.main">
     <configuration name="arduino_uart" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
       <module name="python_with_venv" />
       <option name="INTERPRETER_OPTIONS" value="" />
@@ -74,6 +73,27 @@
       <option name="ADD_CONTENT_ROOTS" value="true" />
       <option name="ADD_SOURCE_ROOTS" value="true" />
       <option name="SCRIPT_NAME" value="$PROJECT_DIR$/main.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
+    <configuration name="testcamera" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
+      <module name="python_with_venv" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/testcamera.py" />
       <option name="PARAMETERS" value="" />
       <option name="SHOW_COMMAND_LINE" value="false" />
       <option name="EMULATE_TERMINAL" value="false" />
@@ -126,8 +146,9 @@
     </configuration>
     <recent_temporary>
       <list>
-        <item itemvalue="Python.arduino_uart" />
         <item itemvalue="Python.main" />
+        <item itemvalue="Python.testcamera" />
+        <item itemvalue="Python.arduino_uart" />
         <item itemvalue="Python.yolo_detection (1)" />
         <item itemvalue="Python.yolo_detection" />
       </list>

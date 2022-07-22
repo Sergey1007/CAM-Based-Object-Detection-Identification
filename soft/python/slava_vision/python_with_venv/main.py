@@ -2,6 +2,7 @@ import cv2
 import numpy as np
 from signal import make_signal
 from yolo_detection import detect_object
+import serial
 
 
 #config yolo for wheels
@@ -26,6 +27,7 @@ new_coordinate=[640/2,480/2]
 
 while (old_coordinate==[]):
     fl,img=cap.read()
+    img = cv2.flip(img, 1)
     if fl:
         img = cv2.resize(img, (640, 480))
         old_coordinate = detect_object(img,output_layers_for_laser,net_laser)
@@ -42,6 +44,7 @@ print(signal)
 while True:
     cap = cv2.VideoCapture(0)
     fl, img = cap.read()
+    img = cv2.flip(img, 1)
     if fl:
         img = cv2.resize(img, (640, 480))
         new_coordinate=detect_object(img,output_layers_for_wheel,net_wheel)
