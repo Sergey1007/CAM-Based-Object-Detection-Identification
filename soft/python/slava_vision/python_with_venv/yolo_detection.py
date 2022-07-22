@@ -2,7 +2,7 @@ import cv2
 import numpy as np
 import time
 
-def detect_object(img,output_layers):
+def detect_object(img,output_layers,net):
     height, width, channels = img.shape
 
     # Detecting objects
@@ -61,10 +61,10 @@ def detect_object(img,output_layers):
 if __name__=='__main__':
     #config yolo
 
-    net = cv2.dnn.readNet("laser.weights", "yolov3_custom.cfg")
+    net1 = cv2.dnn.readNet("wheel-tiny.weights", "yolov4-tiny-custom.cfg")
     classes = ["object"]
-    layer_names = net.getLayerNames()
-    output_layers = [layer_names[i - 1] for i in net.getUnconnectedOutLayers()]
+    layer_names = net1.getLayerNames()
+    output_layers = [layer_names[i - 1] for i in net1.getUnconnectedOutLayers()]
     #colors = np.random.uniform(0, 255, size=(len(classes), 3))
 
 
@@ -74,6 +74,6 @@ if __name__=='__main__':
     while True:
         _, img = cap.read()
         img = cv2.resize(img, (640, 480))
-        coordinates=detect_object(img,output_layers)
+        coordinates=detect_object(img,output_layers,net1)
         print(coordinates)
 

@@ -1,45 +1,69 @@
-import get_start_point as st
 import cv2
 import numpy as np
 from signal import make_signal
 import smbus
-import time
 from i2c_block import send_arr
-
-old_coordinate=[]
-new_coordinate=[1280/2,920/2]
+from yolo_detection import detect_object
+import time
 
 bus=smbus.SMBus(1)
 SLAVE_ADDRESS=0x04
 
+
+#config yolo for wheels
+net_wheel = cv2.dnn.readNet("wheel-tiny.weights", "yolov4-tiny-custom.cfg")
+classes = ["object"]
+layer_names_wheel = net_wheel.getLayerNames()
+output_layers_for_wheel = [layer_names_wheel[i - 1] for i in net_wheel.getUnconnectedOutLayers()]
+
+#config yolo for laser
+net_laser = cv2.dnn.readNet("laser.weights", "yolov3_custom.cfg")
+classes = ["object"]
+layer_names_laser = net_laser.getLayerNames()
+output_layers_for_laser = [layer_names_laser[i - 1] for i in net_laser.getUnconnectedOutLayers()]
+
+#config camera and start coordinates
 cap = cv2.VideoCapture(0)
+old_coordinate=[]
+new_coordinate=[640/2,480/2]
+
+
 
 
 while (old_coordinate==[]):
-    fl, img = cap.read()
-    #img=cv2.imread('sources/laser3.jpg')
-    img = cv2.resize(img, (1280, 920))
-    print(fl)
-    try:
-        old_coordinate=st.get_start_xy(img)
-    except ZeroDivisionError:
-        print('error')
-        cv2.imshow('result', img)
-        cv2.waitKey(3000)
-    else:
-        #print(old_coordinate)
-        cv2.circle(img, old_coordinate, 10, (255, 0, 0), -1) #you can draw a found point
-        cv2.imshow('result',img)
-        cv2.waitKey(3000)
+    fl,img=cap.read()
+    if fl:
+        img = cv2.resize(img, (640, 480))
+        old_coordinate = detect_object(img,output_layers_for_laser,net_laser)
 
+old_coordinate=old_coordinate[0]
 print(old_coordinate)
-print('cycle exit')
+print('detection laser cycle exit')
 signal=make_signal(old_coordinate,new_coordinate)
-print(signal[:3])
-print(signal[3:])
+print(signal)
 
-send_arr(signal[:3])
+send_arr(signal)
 time.sleep(1)
-send_arr(signal[3:])
 
-print('programm exit')
+
+
+
+while True:
+    cap = cv2.VideoCapture(0)
+    fl, img = cap.read()
+    if fl:
+        img = cv2.resize(img, (640, 480))
+        new_coordinate=detect_object(img,output_layers_for_wheel,net_wheel)
+        if new_coordinate!=[]:
+            new_coordinate=new_coordinate[0]
+            signal=make_signal(old_coordinate,new_coordinate)
+            print('generate signal',signal)
+            old_coordinate = new_coordinate
+            send_arr(signal)
+            time.sleep(0.5)
+
+
+
+
+
+

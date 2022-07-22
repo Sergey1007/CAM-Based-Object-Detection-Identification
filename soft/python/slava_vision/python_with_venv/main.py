@@ -1,60 +1,55 @@
-import get_start_point as st
 import cv2
 import numpy as np
-#from matplotlib import pyplot
-#from color_detection import get_red_xy
 from signal import make_signal
+from yolo_detection import detect_object
 
 
+#config yolo for wheels
+net_wheel = cv2.dnn.readNet("wheel-tiny.weights", "yolov4-tiny-custom.cfg")
+classes = ["object"]
+layer_names_wheel = net_wheel.getLayerNames()
+output_layers_for_wheel = [layer_names_wheel[i - 1] for i in net_wheel.getUnconnectedOutLayers()]
 
+#config yolo for laser
+net_laser = cv2.dnn.readNet("laser.weights", "yolov3_custom.cfg")
+classes = ["object"]
+layer_names_laser = net_laser.getLayerNames()
+output_layers_for_laser = [layer_names_laser[i - 1] for i in net_laser.getUnconnectedOutLayers()]
+
+#config camera and start coordinates
+cap = cv2.VideoCapture(0)
 old_coordinate=[]
-new_coordinate=[1280/2,920/2]
+new_coordinate=[640/2,480/2]
 
-a=0
+
+
+
 while (old_coordinate==[]):
-    if (a==0):
-        img = cv2.imread('sources/ipad1.jpg')
+    fl,img=cap.read()
+    if fl:
+        img = cv2.resize(img, (640, 480))
+        old_coordinate = detect_object(img,output_layers_for_laser,net_laser)
 
-    if (a==1):
-        img = cv2.imread('sources/laser3.jpg')
-    a+=1
-    img=cv2.resize(img,(1280,920))
-
-
-    #cap = cv2.VideoCapture(0)
-    #_, img = cap.read()
-    try:
-        old_coordinate=st.get_start_xy(img)
-    except ZeroDivisionError:
-        print('error')
-        cv2.imshow('result', img)
-        cv2.waitKey(3000)
-    else:
-        #print(old_coordinate)
-        cv2.circle(img, old_coordinate, 10, (255, 0, 0), -1) #you can draw a found point
-        cv2.imshow('result',img)
-        cv2.waitKey(3000)
+old_coordinate=old_coordinate[0]
 print(old_coordinate)
-print('cycle exit')
+print('detection laser cycle exit')
 signal=make_signal(old_coordinate,new_coordinate)
 print(signal)
-'''
+
+
+
 
 while True:
-
-    old_coordinate=new_coordinate
-    #img = cv2.imread('sources/ipad1.jpg')
     cap = cv2.VideoCapture(0)
     fl, img = cap.read()
-    if (fl==True):
-        try:
-            img = cv2.resize(img, (1280, 920))
-            new_coordinate=get_red_xy(img)
-            cv2.circle(img, new_coordinate, 10, (255, 0, 0), -1) #you can draw a found point
+    if fl:
+        img = cv2.resize(img, (640, 480))
+        new_coordinate=detect_object(img,output_layers_for_wheel,net_wheel)
+        if new_coordinate!=[]:
+            new_coordinate=new_coordinate[0]
             signal=make_signal(old_coordinate,new_coordinate)
-            print(signal)
-            cv2.imshow('result',img)
-            cv2.waitKey(1000)
-        except ZeroDivisionError:
-            print('error')
-'''
+            print('generate signal',signal)
+            old_coordinate = new_coordinate
+
+
+
