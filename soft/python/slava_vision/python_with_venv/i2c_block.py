@@ -17,7 +17,7 @@ def send_arr(data):
 if  __name__=='__main__':
 	while True:
 		data=[]
-		for _ in range (3):
+		for _ in range (6):
 			symbol=int(input("enter value: "))
 			data.append(symbol)
 		print(data)
