@@ -1,11 +1,11 @@
 def make_signal(old_c,new_c):
     dif=[0,0]
-    signal=[1,0,1,2,0,1] #[0]-1 motor , [3]-2 motor ,[2],[5]-directions
+    signal=[1,0,0,2,0,1] #[0]-1 motor , [3]-2 motor ,[2],[5]-directions
     dif[0]=new_c[0]-old_c[0]
     dif[1] = new_c[1]- old_c[1]
 
     if (dif[0]<0):  #set directions
-        signal[2]=0
+        signal[2]=1
     if (dif[1]<0):
         signal[5]=0
 

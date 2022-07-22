@@ -3,7 +3,13 @@ import numpy as np
 from signal import make_signal
 from yolo_detection import detect_object
 import serial
+import time
+from arduino_uart import turn_motor
 
+set_port=input("enter your com-port: ")
+serialcomm = serial.Serial(set_port,115200)
+serialcomm.timeout = 1
+time.sleep(1)
 
 #config yolo for wheels
 net_wheel = cv2.dnn.readNet("wheel-tiny.weights", "yolov4-tiny-custom.cfg")
@@ -36,6 +42,7 @@ old_coordinate=old_coordinate[0]
 print(old_coordinate)
 print('detection laser cycle exit')
 signal=make_signal(old_coordinate,new_coordinate)
+turn_motor(signal,serialcomm)
 print(signal)
 
 
@@ -51,8 +58,11 @@ while True:
         if new_coordinate!=[]:
             new_coordinate=new_coordinate[0]
             signal=make_signal(old_coordinate,new_coordinate)
+            turn_motor(signal, serialcomm)
+            time.sleep(2)
             print('generate signal',signal)
             old_coordinate = new_coordinate
+
 
 
 
