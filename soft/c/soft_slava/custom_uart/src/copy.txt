@@ -1,0 +1,51 @@
+#include <iostream>
+#include <string>
+#include <fstream>
+using namespace std;
+
+
+
+
+int main() {
+	string path="data.txt";
+	ifstream file;
+	while(1)
+	{
+		file.open(path);
+		if(!file.is_open())
+			{
+				cout<<"file open error"<<endl;
+			}
+		else
+		{
+			cout<<"file is open"<<endl;
+			string str;
+			while(!file.eof())
+			{
+			string temp;
+			file>>temp;
+			str=str+temp+' ';
+
+			}
+			if (str.length()==1)
+				cout<<"empty string";
+			else
+				{
+					//cout<<str.length()<<endl;
+					str[str.length()-1]='\n';
+					cout<<str;
+					break;
+				}
+		}
+		file.close();
+	}
+
+	ofstream wfile;
+	wfile.open("data.txt");
+	wfile<<"done";
+
+
+
+
+	return 0;
+}
