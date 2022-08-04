@@ -54,7 +54,7 @@ void loop() {
       int intarr[6]={0};
       
       Convert_to_int(str,intarr);
-      if (intarr[0]!=0) Serial.print("done");
+      
       
       //Serial.read();
       
@@ -70,7 +70,8 @@ void loop() {
           digitalWrite(STEP_PIN2,LOW);
           intarr[1]--;
           intarr[4]--;
-        }   
+        } 
+      if (intarr[0]!=0) Serial.print("done");  
     }
 }
 

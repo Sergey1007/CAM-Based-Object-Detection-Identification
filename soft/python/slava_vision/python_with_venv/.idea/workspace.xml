@@ -2,9 +2,8 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="5359326f-be64-4443-964e-77dc8c04eb22" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/../../../c/soft_slava/motors_arduino_uart/motors_arduino_uart.ino" beforeDir="false" afterPath="$PROJECT_DIR$/../../../c/soft_slava/motors_arduino_uart/motors_arduino_uart.ino" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/main.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/signal.py" beforeDir="false" afterPath="$PROJECT_DIR$/signal.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -39,8 +38,8 @@
       <recent name="C:\Users\tkac0\digital_solve\CAM-Based-Object-Detection-Identification\soft\python\slava_vision\python_with_venv" />
     </key>
   </component>
-  <component name="RunManager" selected="Python.main">
-    <configuration name="arduino_uart" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
+  <component name="RunManager" selected="Python.custom_uart">
+    <configuration name="custom_uart" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
       <module name="python_with_venv" />
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
@@ -52,7 +51,7 @@
       <option name="IS_MODULE_SDK" value="true" />
       <option name="ADD_CONTENT_ROOTS" value="true" />
       <option name="ADD_SOURCE_ROOTS" value="true" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/arduino_uart.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/custom_uart.py" />
       <option name="PARAMETERS" value="" />
       <option name="SHOW_COMMAND_LINE" value="false" />
       <option name="EMULATE_TERMINAL" value="false" />
@@ -147,11 +146,11 @@
     </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="Python.custom_uart" />
         <item itemvalue="Python.main" />
         <item itemvalue="Python.signal" />
         <item itemvalue="Python.yolo_detection (1)" />
         <item itemvalue="Python.testcamera" />
-        <item itemvalue="Python.arduino_uart" />
       </list>
     </recent_temporary>
   </component>
