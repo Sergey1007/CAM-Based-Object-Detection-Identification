@@ -1,2 +1,4 @@
-laser.weights
-wheel-tiny.weights
+other_files
+yolo_sources
+.idea
+__pycache__

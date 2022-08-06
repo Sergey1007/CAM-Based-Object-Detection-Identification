@@ -2,14 +2,15 @@ import cv2
 import numpy as np
 import time
 
-def detect_object(img,output_layers,net):
+def detect_object(img,output_layers,net1):
+    start=time.time()
     height, width, channels = img.shape
 
     # Detecting objects
-    blob = cv2.dnn.blobFromImage(img, 0.00392, (320, 320), (0, 0, 0), True, crop=False)
+    blob = cv2.dnn.blobFromImage(img, 0.00392, (416, 416), (0, 0, 0), True, crop=False)
 
-    net.setInput(blob)
-    outs = net.forward(output_layers)
+    net1.setInput(blob)
+    outs = net1.forward(output_layers)
 
     #create lists with object
     class_ids = []
@@ -54,6 +55,8 @@ def detect_object(img,output_layers,net):
             #cv2.putText(img, label, (x, y + 30), font, 3, color, 2)
             cv2.circle(img,(x_c,y_c),10,(0,0,255),-1)
 
+    end=time.time()
+    print("fps is {}".format(1/(end-start)))
     cv2.imshow("Image", img)
     cv2.waitKey(1)
     return final_coordinates
@@ -61,8 +64,9 @@ def detect_object(img,output_layers,net):
 if __name__=='__main__':
     #config yolo
 
-    net1 = cv2.dnn.readNet("wheel-tiny.weights", "yolov4-tiny-custom.cfg")
-    classes = ["object"]
+    # net1 = cv2.dnn.readNet("wheel-tiny.weights", "yolov4-tiny-custom.cfg")
+    net1 = cv2.dnn.readNet("multi.weights", "tiny_multi.cfg")
+    classes = ["object","object1"]
     layer_names = net1.getLayerNames()
     output_layers = [layer_names[i - 1] for i in net1.getUnconnectedOutLayers()]
     #colors = np.random.uniform(0, 255, size=(len(classes), 3))
@@ -75,5 +79,6 @@ if __name__=='__main__':
         _, img = cap.read()
         img = cv2.resize(img, (640, 480))
         coordinates=detect_object(img,output_layers,net1)
+        #coordinates=detect_object(img)
         print(coordinates)
 
