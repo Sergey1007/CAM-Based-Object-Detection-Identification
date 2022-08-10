@@ -6,7 +6,22 @@ def connect_to_serialport():
     time.sleep(2)
 
 def transmit_string(mystring):
-    start = time.time()
+
+    file = open('data.txt', mode='w', encoding='utf8')
+    file.write(mystring)
+    file.close()
+    if mystring == "close":
+        return "close"
+
+def receive_string(mystring):
+    return_string = ""
+    while return_string == "" or return_string == mystring:
+        file = open('data.txt', mode='r', encoding='utf8')
+        return_string = file.readline()
+        file.close()
+    return return_string
+
+def transmit_with_receive(mystring):
     file = open('data.txt', mode='w', encoding='utf8')
     file.write(mystring)
     file.close()
@@ -18,10 +33,7 @@ def transmit_string(mystring):
         file = open('data.txt', mode='r', encoding='utf8')
         return_string = file.readline()
         file.close()
-    end = time.time()
-    print(end - start)
     return return_string
-
 
 
 
