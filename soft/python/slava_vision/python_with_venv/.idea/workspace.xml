@@ -3,7 +3,9 @@
   <component name="ChangeListManager">
     <list default="true" id="5359326f-be64-4443-964e-77dc8c04eb22" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/custom_uart.py" beforeDir="false" afterPath="$PROJECT_DIR$/custom_uart.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/multi_main.py" beforeDir="false" afterPath="$PROJECT_DIR$/multi_main.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/signal.py" beforeDir="false" afterPath="$PROJECT_DIR$/signal.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/yolo_detection_multi.py" beforeDir="false" afterPath="$PROJECT_DIR$/yolo_detection_multi.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -41,27 +43,6 @@
     </key>
   </component>
   <component name="RunManager" selected="Python.multi_main">
-    <configuration name="main" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
-      <module name="python_with_venv" />
-      <option name="INTERPRETER_OPTIONS" value="" />
-      <option name="PARENT_ENVS" value="true" />
-      <envs>
-        <env name="PYTHONUNBUFFERED" value="1" />
-      </envs>
-      <option name="SDK_HOME" value="" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
-      <option name="IS_MODULE_SDK" value="true" />
-      <option name="ADD_CONTENT_ROOTS" value="true" />
-      <option name="ADD_SOURCE_ROOTS" value="true" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/main.py" />
-      <option name="PARAMETERS" value="" />
-      <option name="SHOW_COMMAND_LINE" value="false" />
-      <option name="EMULATE_TERMINAL" value="false" />
-      <option name="MODULE_MODE" value="false" />
-      <option name="REDIRECT_INPUT" value="false" />
-      <option name="INPUT_FILE" value="" />
-      <method v="2" />
-    </configuration>
     <configuration name="multi_main" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
       <module name="python_with_venv" />
       <option name="INTERPRETER_OPTIONS" value="" />
@@ -96,6 +77,27 @@
       <option name="ADD_CONTENT_ROOTS" value="true" />
       <option name="ADD_SOURCE_ROOTS" value="true" />
       <option name="SCRIPT_NAME" value="$PROJECT_DIR$/teset.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
+    <configuration name="testcamera" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
+      <module name="python_with_venv" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/other_files" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/other_files/testcamera.py" />
       <option name="PARAMETERS" value="" />
       <option name="SHOW_COMMAND_LINE" value="false" />
       <option name="EMULATE_TERMINAL" value="false" />
@@ -149,10 +151,10 @@
     <recent_temporary>
       <list>
         <item itemvalue="Python.multi_main" />
+        <item itemvalue="Python.testcamera" />
         <item itemvalue="Python.yolo_detection_multi" />
         <item itemvalue="Python.teset" />
         <item itemvalue="Python.yolo_detection (1)" />
-        <item itemvalue="Python.main" />
       </list>
     </recent_temporary>
   </component>

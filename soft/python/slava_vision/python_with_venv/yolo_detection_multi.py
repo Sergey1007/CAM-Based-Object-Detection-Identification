@@ -21,7 +21,7 @@ def multi_object_detect(img):
     height, width, channels = img.shape
 
     # Detecting objects
-    blob = cv2.dnn.blobFromImage(img, 0.00392, (416, 416), (0, 0, 0), True, crop=False)
+    blob = cv2.dnn.blobFromImage(img, 0.00392, (512, 512), (0, 0, 0), True, crop=False)
 
     net1.setInput(blob)
     outs = net1.forward(output_layers)

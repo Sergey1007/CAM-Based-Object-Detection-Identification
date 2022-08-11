@@ -2,7 +2,7 @@ import cv2
 import numpy as np
 from signal import make_signal
 import time
-from custom_uart import connect_to_serialport , transmit_string
+from custom_uart import connect_to_serialport , transmit_with_receive
 from yolo_detection_multi import multi_object_detect
 import yolo_detection_multi
 import enum
@@ -25,7 +25,7 @@ class Wheel():
 cap = cv2.VideoCapture(0)
 wheel=Wheel()
 laser=Laser()
-#connect_to_serialport()
+connect_to_serialport()
 
 while True:
     _, img = cap.read()
@@ -40,20 +40,20 @@ while True:
     if return_list[Objects.wheel.value]!=[]:
         print(return_list[Objects.wheel.value][0])
         wheel.coordinates=return_list[Objects.wheel.value][0]
+        cv2.circle(img, wheel.coordinates, 10, (0, 0, 255), -1)
 
     if return_list[Objects.laser.value]!=[]:
         print(return_list[Objects.laser.value][0])
         laser.coordinates = return_list[Objects.laser.value][0]
+        cv2.circle(img, laser.coordinates, 10, (0, 255, 0), -1)
 
     if wheel.coordinates!=[] and laser.coordinates!=[]:
         signal = make_signal(laser.coordinates, wheel.coordinates)
         print('generate signal', signal)
+        transmit_with_receive(signal)
+        time.sleep(0.4)
         laser.coordinates = []
         wheel.coordinates = []
-
-
-
-
 
 
     cv2.imshow("Image", img)
