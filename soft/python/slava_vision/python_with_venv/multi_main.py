@@ -27,6 +27,9 @@ wheel=Wheel()
 laser=Laser()
 connect_to_serialport()
 
+
+
+
 while True:
     _, img = cap.read()
     img = cv2.resize(img, (640, 480))
@@ -51,9 +54,10 @@ while True:
         signal = make_signal(laser.coordinates, wheel.coordinates)
         print('generate signal', signal)
         transmit_with_receive(signal)
-        time.sleep(0.4)
+        time.sleep(0.1)
         laser.coordinates = []
         wheel.coordinates = []
+
 
 
     cv2.imshow("Image", img)

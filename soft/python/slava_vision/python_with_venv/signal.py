@@ -14,8 +14,8 @@ def make_signal(old_c,new_c):
     if abs(dif[1])<20:
         dif[1]=0
 
-    signal[1]=int(abs(dif[0]/3.75/1)) #steps for motor 1 3.75 default
-    signal[4] = int(abs(dif[1] / 3.2/1))  # steps for motor 1 3.2
+    signal[1]=int(abs(dif[0]/3.75/1.3)) #steps for motor 1 3.75 default
+    signal[4] = int(abs(dif[1] / 3.2/1.3))  # steps for motor 1 3.2
 
     signal_string=""
     for i in range(0,5):
