@@ -79,40 +79,40 @@ while True:
     #all_coordinates=np.array(return_list,dtype=None)
     count+=1
 
-    #print(all_coordinates)
+    # print(all_coordinates)
 
-    # if len(return_list[Wheel.id])==1:
-    #     min_i=0
-    #     i=0
-    #     min_vector=1000
-    #     x,y=return_list[Wheel.id][0]
-    #     for object in objects:
-    #         x_obj, y_obj = object.coordinates
-    #         vector = sqrt((x - x_obj) ** 2 + (y - y_obj) ** 2)
-    #         if vector < min_vector:
-    #             min_vector = vector
-    #             min_i = i
-    #         i += 1
-    #
-    #     cv2.putText(img, f'{objects[min_i].id_obj}', (x,y), cv2.FONT_HERSHEY_SIMPLEX, 1, (255, 0, 0), 2)
-    #     if len(objects[min_i].queue)<3:
-    #         objects[min_i].queue.append([x,y])
-    #     else:
-    #         objects[min_i].queue.append([x,y])
-    #         del objects[min_i].queue[0]
-    #         for corrd in objects[min_i].queue:
-    #             cv2.circle(img, corrd, 10, (0, 0, 255), thickness=1)
-    #     for object in objects:
-    #         if object.id_obj!=min_i+1 and count>3:
-    #             object.coordinates=[0,0]
-    #
-    #             count=0
-    #
-    #
-    # if len(return_list[Wheel.id])==1:
-    #     counter+=1
+    if len(return_list[Wheel.id])==1:
+        min_i=0
+        i=0
+        min_vector=1000
+        x,y=return_list[Wheel.id][0]
+        for object in objects:
+            x_obj, y_obj = object.coordinates
+            vector = sqrt((x - x_obj) ** 2 + (y - y_obj) ** 2)
+            if vector < min_vector:
+                min_vector = vector
+                min_i = i
+            i += 1
 
-    if len(return_list[Wheel.id])!=[]:
+        cv2.putText(img, f'{objects[min_i].id_obj}', (x,y), cv2.FONT_HERSHEY_SIMPLEX, 1, (255, 0, 0), 2)
+        if len(objects[min_i].queue)<3:
+            objects[min_i].queue.append([x,y])
+        else:
+            objects[min_i].queue.append([x,y])
+            del objects[min_i].queue[0]
+            for corrd in objects[min_i].queue:
+                cv2.circle(img, corrd, 10, (0, 0, 255), thickness=1)
+        for object in objects:
+            if object.id_obj!=min_i+1 and count>3:
+                object.coordinates=[0,0]
+
+                count=0
+
+
+    if len(return_list[Wheel.id])==1:
+        counter+=1
+
+    if len(return_list[Wheel.id])==2:
         print(return_list)
         if wheel2.coordinates==[0,0] and wheel1.coordinates!=[0,0]:
             wheel1.inspect(return_list=return_list)

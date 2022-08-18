@@ -1,46 +1,47 @@
 import os
 import time
+import subprocess
 
 def connect_to_serialport():
-    os.startfile('uart_for_project.exe')
+    file=open('signal.bin',mode='wb')
+    file.close()
+    subprocess.Popen('uart_for_project.exe \\\\.\\COM5')
     time.sleep(2)
 
-def transmit_string(mystring):
 
-    file = open('data.txt', mode='w', encoding='utf8')
-    file.write(mystring)
+def transmit_string_with_receive(signal):
+    #transmit data
+    start=time.time()
+    file=open('signal.bin',mode='wb')
+    file.write(signal)
     file.close()
-    if mystring == "close":
-        return "close"
 
-def receive_string(mystring):
-    return_string = ""
-    while return_string == "" or return_string == mystring:
-        file = open('data.txt', mode='r', encoding='utf8')
-        return_string = file.readline()
+    #receive data
+    return_string=b''
+    while True:
+        file=open('signal.bin',mode='rb')
+        return_string=file.readline()
+        if return_string==b'1' or return_string==b'2':
+            break
         file.close()
+    # print(return_string)
+
+    end=time.time()
+    #print(end-start)
     return return_string
 
-def transmit_with_receive(mystring):
-    file = open('data.txt', mode='w', encoding='utf8')
-    file.write(mystring)
-    file.close()
-    if mystring == "close":
-        return "close"
 
-    return_string = ""
-    while return_string == "" or return_string == mystring:
-        file = open('data.txt', mode='r', encoding='utf8')
-        return_string = file.readline()
-        file.close()
-    return return_string
+def close_port():
+    file=open('signal.bin',mode='wb')
+    file.write(b'close')
+    file.close()
 
 
 
 if __name__=='__main__':
     connect_to_serialport()
-    mystring = input("enter string: ")
-    print(mystring)
-    return_string=transmit_string(mystring)
+    mystring = b'1;1;0;0;2;200;1'
+    return_string=transmit_string_with_receive(mystring)
     print(return_string)
+    close_port()
 
