@@ -2,7 +2,7 @@ import cv2
 import numpy as np
 from signal import make_signal
 import time
-from custom_uart import connect_to_serialport , transmit_with_receive
+from custom_uart import connect_to_serialport , transmit_string_with_receive
 from yolo_detection_multi import multi_object_detect
 import yolo_detection_multi
 import enum
@@ -51,10 +51,9 @@ while True:
         cv2.circle(img, laser.coordinates, 10, (0, 255, 0), -1)
 
     if wheel.coordinates!=[] and laser.coordinates!=[]:
-        signal = make_signal(laser.coordinates, wheel.coordinates)
+        signal = make_signal(laser.coordinates, wheel.coordinates,installation=2)
         print('generate signal', signal)
-        transmit_with_receive(signal)
-        time.sleep(0.1)
+        transmit_string_with_receive(signal)
         laser.coordinates = []
         wheel.coordinates = []
 

@@ -12,7 +12,7 @@ def connect_to_serialport():
 def transmit_string_with_receive(signal):
     #transmit data
     start=time.time()
-    file=open('signal.bin',mode='wb')
+    file=open('signal.bin',mode='w')
     file.write(signal)
     file.close()
 
@@ -40,7 +40,7 @@ def close_port():
 
 if __name__=='__main__':
     connect_to_serialport()
-    mystring = b'1;1;0;0;2;200;1'
+    mystring = '1;1;0;0;2;200;1'
     return_string=transmit_string_with_receive(mystring)
     print(return_string)
     close_port()

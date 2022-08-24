@@ -1,134 +1,112 @@
 from math import sqrt
+from threading import Thread
 
 import cv2
 import time
 import numpy as np
 from yolo_detection_multi import multi_object_detect
 import yolo_detection_multi
+from signal import make_signal
+from custom_uart import connect_to_serialport , transmit_string_with_receive
 
-
-class Wheel():
-    id=0
+class Object():
 
     def __init__(self,number_obj):
-        self.coordinates=[0,0]
-        self.queue=[]
-        self.id_obj=number_obj
-
-    def inspect(self,return_list):
-        #all_coordinates = np.array(return_list, dtype='int16')
-        all_coordinates=return_list[Wheel.id]
-        print(all_coordinates)
-        if all_coordinates != []:
-            min_vector = 1000
-            min_i=0
-            i=0
-            # if len(self.queue) < 3:
-            #     x_obj, y_obj = self.coordinates
-            # else:
-            #     delta=[x-y for x,y in zip(self.coordinates,self.queue[-2])]
-            #     x_obj,y_obj=[x+y for x,y in zip(self.coordinates,delta)]
-            #     cv2.circle(img, (x_obj,y_obj), 10, (0, 255, 0), -1)
-
-            x_obj, y_obj = self.coordinates
-            for x, y in all_coordinates:
-                cv2.circle(img, (x, y), 10, (0, 255, 0), -1)
-                cv2.line(img, (width//2,0), (x, y), (0, 255, 0), thickness=2)
-                vector = sqrt((x - x_obj) ** 2 + (y - y_obj) ** 2)
-                i+=1
-                if vector < min_vector:
-                    min_vector = vector
-                    minx, miny = x, y
+        self.coordinates = [width//2+30*(number_obj-1), height//2]
+        self.id_obj = number_obj
+        self.find = False
 
 
-                    min_i=i
-            print(self.id_obj, minx, miny)
-            self.coordinates = [minx, miny]
-            all_coordinates.remove([minx,miny])
+class Wheel(Object):
+    id=0
 
-            cv2.putText(img,f'{self.id_obj}',self.coordinates,cv2.FONT_HERSHEY_SIMPLEX,1,(255,0,0),2)
-            if len(self.queue) < 3 and self.coordinates != []:
-                self.queue.append(self.coordinates)
-            else:
-                self.queue.append(self.coordinates)
-                del self.queue[0]
-                for corrd in self.queue:
-                    cv2.circle(img, corrd, 10, (0, 0, 255), thickness=1)
+    def __init__(self,*args,**kwargs):
+        super().__init__(*args,**kwargs)
+
+class Laser(Object):
+    id = 1
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
 
 
 
-
-
-#config camera and port
-cap = cv2.VideoCapture(0)
-wheel1=Wheel(number_obj=1)
-wheel2=Wheel(number_obj=2)
-objects=[wheel1,wheel2]
-
-height=480
-width=640
-count=0
-counter=0
-
-while True:
-    _, img = cap.read()
-    img = cv2.resize(img, (width,height))
-    img = cv2.flip(img, 1)
-    start = time.time()
-    return_list = multi_object_detect(img)
-    #all_coordinates=np.array(return_list,dtype=None)
-    count+=1
-
-    # print(all_coordinates)
-
-    if len(return_list[Wheel.id])==1:
-        min_i=0
-        i=0
-        min_vector=1000
-        x,y=return_list[Wheel.id][0]
+def sort_coordinates(data,objects,img):
+    for x,y in data[objects[0].id]:
+        cv2.circle(img, (x, y), 10, (0, 0, 255), -1)
+        ind_find=0
+        min_vector=sqrt(height**2+width**2)
         for object in objects:
-            x_obj, y_obj = object.coordinates
-            vector = sqrt((x - x_obj) ** 2 + (y - y_obj) ** 2)
-            if vector < min_vector:
-                min_vector = vector
-                min_i = i
-            i += 1
+            if object.find==False:
+                x_obj,y_obj=object.coordinates
+                vector=sqrt((x-x_obj)**2+(y-y_obj)**2)
+                if vector<min_vector:
+                    min_vector=vector
+                    ind_find=object.id_obj
+        #print(min_vector,ind_find)
+        if objects[ind_find - 1].find == False:
+            objects[ind_find-1].coordinates=[x,y]
+            objects[ind_find-1].find=True
 
-        cv2.putText(img, f'{objects[min_i].id_obj}', (x,y), cv2.FONT_HERSHEY_SIMPLEX, 1, (255, 0, 0), 2)
-        if len(objects[min_i].queue)<3:
-            objects[min_i].queue.append([x,y])
-        else:
-            objects[min_i].queue.append([x,y])
-            del objects[min_i].queue[0]
-            for corrd in objects[min_i].queue:
-                cv2.circle(img, corrd, 10, (0, 0, 255), thickness=1)
-        for object in objects:
-            if object.id_obj!=min_i+1 and count>3:
-                object.coordinates=[0,0]
-
-                count=0
+    for object in objects:
+        object.find=False
+        cv2.putText(img, str(object.id_obj), object.coordinates, cv2.FONT_HERSHEY_PLAIN, 3, (0, 255, 0), 2)
 
 
-    if len(return_list[Wheel.id])==1:
-        counter+=1
 
-    if len(return_list[Wheel.id])==2:
-        print(return_list)
-        if wheel2.coordinates==[0,0] and wheel1.coordinates!=[0,0]:
-            wheel1.inspect(return_list=return_list)
-            wheel2.inspect(return_list=return_list)
-        if wheel1.coordinates == [0, 0] and wheel2.coordinates!=[0,0]:
-            wheel2.inspect(return_list=return_list)
-            wheel1.inspect(return_list=return_list)
-        else:
-            wheel1.inspect(return_list=return_list)
-            wheel2.inspect(return_list=return_list)
-        print(counter)
-        print('--------------------')
-        count=0
+def tracking_object():
+    while True:
+        _, img = cap.read()
+        img = cv2.resize(img, (width,height))
+        img = cv2.flip(img, 1)
+        start = time.time()
+        return_list = multi_object_detect(img)
 
-    end = time.time()
-    cv2.putText(img, "{} fps".format(round(1 / (end - start), 2)), (20, 30), cv2.FONT_HERSHEY_PLAIN, 3, (0, 0, 255), 2)
+        sort_coordinates(data=return_list,objects=wheels,img=img)
+        sort_coordinates(data=return_list, objects=lasers,img=img)
 
-    cv2.imshow("Image", img)
-    cv2.waitKey(1)
+
+
+        end = time.time()
+        cv2.putText(img, "{} fps".format(round(1 / (end - start), 2)), (20, 30), cv2.FONT_HERSHEY_PLAIN, 3, (0, 0, 255), 2)
+        cv2.imshow("Image", img)
+        cv2.waitKey(1)
+
+
+def send_signal():
+    while True:
+        print(lasers[0].coordinates, wheels[0].coordinates)
+        signal = make_signal(lasers[0].coordinates, wheels[0].coordinates,installation=1)
+        time.sleep(0.2)
+        transmit_string_with_receive(signal)
+        time.sleep(0.1)
+        # print(lasers[1].coordinates, wheels[1].coordinates)
+        # signal = make_signal(lasers[1].coordinates, wheels[1].coordinates, installation=2)
+        # time.sleep(0.2)
+        # transmit_string_with_receive(signal)
+        # time.sleep(0.1)
+        #print(signal)
+        print('++++++++++++')
+
+if __name__=='__main__':
+
+    # config camera and port
+    cap = cv2.VideoCapture(0)
+    id_objects = {'wheel': 0, 'laser': 1}
+    # connect_to_serialport()
+    height = 480
+    width = 640
+
+    wheels = []
+    lasers = []
+    for i in range(1, 3):
+        wheels.append(Wheel(number_obj=i))
+
+    lasers.append(Laser(number_obj=1))
+
+
+
+    thread1=Thread(target=tracking_object)
+    thread1.start()
+    # thread2 = Thread(target=send_signal())
+    # thread2.start()
